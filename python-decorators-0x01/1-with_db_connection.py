@@ -8,10 +8,8 @@ def with_db_connection(func):
         connection =sqlite3.connect("users.db")
         try:
             result = func(connection, *args, **kwargs)
-            connection.commit()
             return result
         except Exception as e:
-            connection.rollback()
             raise e
         finally:
             connection.close()
