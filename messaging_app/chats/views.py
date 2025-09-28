@@ -1,143 +1,125 @@
-from django.shortcuts import render
 from rest_framework import viewsets, status, filters
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.pagination import LimitOffsetPagination
-from rest_framework.throttling import UserRateThrottle
 from django_filters.rest_framework import DjangoFilterBackend
-from django.db.models import Prefetch
 
 from .models import User, Conversation, Message
 from .serializers import ConversationSerializer, MessageSerializer
+from .permissions import (
+    IsParticipantOfConversation,
+    IsMessageSenderOrParticipant,
+)
+from .filters import MessageFilter, ConversationFilter
+from .pagination import MessagePagination, ConversationPagination
 
 
 class ConversationViewSet(viewsets.ModelViewSet):
     """
-    ViewSet for listing, retrieving, and creating conversations.
-    Optimized for performance with prefetching and pagination.
+    ViewSet for listing and creating conversations.
     """
     serializer_class = ConversationSerializer
-    permission_classes = [IsAuthenticated]
-    pagination_class = LimitOffsetPagination
+    permission_classes = [IsAuthenticated, IsParticipantOfConversation]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    search_fields = ['participants__email']
-    ordering_fields = ['created_at']
+    filterset_class = ConversationFilter
+    search_fields = ['participants__email', 'participants__first_name', 'participants__last_name']
+    ordering_fields = ['created_at', 'participants__email']
     ordering = ['-created_at']
-    throttle_classes = [UserRateThrottle]  # Prevent abuse
+    pagination_class = ConversationPagination
 
     def get_queryset(self):
         """
-        Return conversations for the authenticated user, excluding soft-deleted ones.
-        Prefetch participants and last message for efficiency.
+        This view should return a list of all the conversations
+        for the currently authenticated user.
         """
-        return Conversation.objects.filter(
-            participants=self.request.user,
-            deleted_at__isnull=True
-        ).prefetch_related(
-            'participants',
-            Prefetch('messages', queryset=Message.objects.select_related('sender').filter(deleted_at__isnull=True).order_by('-sent_at')[:1], to_attr='last_messages')
-        )
+        return Conversation.objects.filter(participants=self.request.user).distinct()
 
     def create(self, request, *args, **kwargs):
         """
-        Create a new conversation with participant emails.
-        Uses model's get_or_create_conversation for deduplication.
+        Create a new conversation with a list of participant emails.
+        Expects `participants` in request data, a list of emails.
         """
         participant_emails = request.data.get('participants', [])
-        if not isinstance(participant_emails, list) or len(participant_emails) < 1:
+        if not isinstance(participant_emails, list):
             return Response(
-                {"error": "Participants must be a non-empty list of emails."},
+                {"error": "Participants must be a list of emails."},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        # Include current user
+        # Add the current user's email to the set to ensure they are included
         all_emails = set(participant_emails)
         all_emails.add(request.user.email)
 
-        # Fetch users, excluding soft-deleted
-        participants = User.objects.filter(email__in=all_emails, deleted_at__isnull=True)
+        participants = User.objects.filter(email__in=all_emails)
 
+        # Optional: Check if all provided emails were found
         if len(participants) != len(all_emails):
             found_emails = {p.email for p in participants}
             missing_emails = all_emails - found_emails
             return Response(
-                {"error": f"Users not found or deleted: {', '.join(missing_emails)}"},
+                {"error": f"Users not found: {', '.join(missing_emails)}"},
                 status=status.HTTP_404_NOT_FOUND
             )
 
-        # Use model's method to avoid duplicates
-        conversation = Conversation.get_or_create_conversation([p.user_id for p in participants])
+        conversation = Conversation.objects.create()
+        conversation.participants.set(participants)
         serializer = self.get_serializer(conversation)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    def retrieve(self, request, *args, **kwargs):
+    def get_permissions(self):
         """
-        Retrieve a single conversation with optimized queryset.
+        Instantiates and returns the list of permissions that this view requires.
         """
-        instance = self.get_object()
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)
+        if self.action == 'create':
+            # Only authenticated users can create conversations
+            permission_classes = [IsAuthenticated]
+        else:
+            # For other actions, check if user is participant
+            permission_classes = [IsAuthenticated, IsParticipantOfConversation]
+
+        return [permission() for permission in permission_classes]
 
 
 class MessageViewSet(viewsets.ModelViewSet):
     """
     ViewSet for listing and creating messages within a conversation.
-    Nested under conversations via conversation_pk.
     """
     serializer_class = MessageSerializer
-    permission_classes = [IsAuthenticated]
-    pagination_class = LimitOffsetPagination
+    permission_classes = [IsAuthenticated, IsMessageSenderOrParticipant]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    search_fields = ['message_body', 'sender__email']
-    ordering_fields = ['sent_at']
+    filterset_class = MessageFilter
+    search_fields = ['message_body', 'sender__email', 'sender__first_name', 'sender__last_name']
+    ordering_fields = ['sent_at', 'sender__email']
     ordering = ['sent_at']
-    throttle_classes = [UserRateThrottle]  # Prevent spam
+    pagination_class = MessagePagination
 
     def get_queryset(self):
         """
-        Filter messages by conversation_id from URL.
-        Ensures user is a participant and excludes soft-deleted messages.
+        Filter messages by a `conversation_id` from the URL.
+        Ensures user is a participant of the conversation.
         """
         conversation_pk = self.kwargs.get('conversation_pk')
         if conversation_pk:
             return Message.objects.filter(
                 conversation__conversation_id=conversation_pk,
-                conversation__participants=self.request.user,
-                conversation__deleted_at__isnull=True,
-                deleted_at__isnull=True
-            ).select_related('sender')
+                conversation__participants=self.request.user
+            ).select_related('sender', 'conversation')
         return Message.objects.none()
 
     def perform_create(self, serializer):
         """
-        Create a message, setting sender to current user.
-        Validate participation and update status if needed.
+        Set the sender of the message to the current authenticated user.
         """
         conversation_pk = self.kwargs.get('conversation_pk')
         try:
-            conversation = Conversation.objects.get(
-                conversation_id=conversation_pk,
-                deleted_at__isnull=True
-            )
+            conversation = Conversation.objects.get(conversation_id=conversation_pk)
         except Conversation.DoesNotExist:
-            raise ValidationError("Conversation does not exist or is deleted.")
+            raise ValidationError("Conversation does not exist.")
 
         if self.request.user not in conversation.participants.all():
-            raise ValidationError("You are not a participant of this conversation.")
+            return Response(
+                {"error": "You are not a participant of this conversation."},
+                status=status.HTTP_403_FORBIDDEN
+            )
 
         serializer.save(sender=self.request.user, conversation=conversation)
-        # Optional: Update message status to 'sent' (already default in model)
-        # Trigger async notification if needed (e.g., via Celery)
-
-    def list(self, request, *args, **kwargs):
-        """
-        List messages with pagination and optimized queryset.
-        """
-        queryset = self.filter_queryset(self.get_queryset())
-        page = self.paginate_queryset(queryset)
-        if page is not None:
-            serializer = self.get_serializer(page, many=True)
-            return self.get_paginated_response(serializer.data)
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data)
