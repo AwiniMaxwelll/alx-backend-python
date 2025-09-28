@@ -1,0 +1,49 @@
+INFO:root:2025-09-26 15:29:43.503724 - User: AnonymousUser - Path: /api/auth/register/
+WARNING:django.request:Bad Request: /api/auth/register/
+INFO:root:2025-09-26 15:30:50.434579 - User: AnonymousUser - Path: /api/auth/login/
+INFO:root:2025-09-26 15:32:04.898337 - User: AnonymousUser - Path: /api/conversations/
+INFO:root:2025-09-26 15:38:29.347528 - User: AnonymousUser - Path: /api/conversations/
+INFO:root:2025-09-26 15:47:33.100531 - User: AnonymousUser - Path: /api/conversations/
+INFO:root:2025-09-26 15:48:28.582740 - User: AnonymousUser - Path: /api/conversations/
+WARNING:django.request:Forbidden: /api/conversations/
+INFO:root:2025-09-26 15:49:20.973807 - User: AnonymousUser - Path: /api/conversations/
+INFO:root:2025-09-26 15:50:50.069999 - User: AnonymousUser - Path: /api/conversations/1649f86c-26bc-4eb0-9355-036b28c1f97c/messages/
+INFO:django.utils.autoreload:C:\Users\leebo\Desktop\alx-prodev-backend\alx-backend-python\Django-Middleware-0x03\chats\middleware.py changed, reloading.
+INFO:root:2025-09-26 15:54:25.320752 - User: AnonymousUser - Path: /api/conversations/1649f86c-26bc-4eb0-9355-036b28c1f97c/messages/
+WARNING:django.request:Forbidden: /api/conversations/1649f86c-26bc-4eb0-9355-036b28c1f97c/messages/
+INFO:root:2025-09-26 15:54:38.386498 - User: AnonymousUser - Path: /api/conversations/
+WARNING:django.request:Forbidden: /api/conversations/
+INFO:root:2025-09-26 16:03:11.292943 - User: AnonymousUser - Path: /api/conversations/1649f86c-26bc-4eb0-9355-036b28c1f97c/messages/
+WARNING:django.request:Forbidden: /api/conversations/1649f86c-26bc-4eb0-9355-036b28c1f97c/messages/
+INFO:django.utils.autoreload:C:\Users\leebo\Desktop\alx-prodev-backend\alx-backend-python\Django-Middleware-0x03\messaging_app\settings.py changed, reloading.
+INFO:django.utils.autoreload:C:\Users\leebo\Desktop\alx-prodev-backend\alx-backend-python\Django-Middleware-0x03\messaging_app\settings.py changed, reloading.
+INFO:root:2025-09-26 16:03:44.287228 - User: AnonymousUser - Path: /api/conversations/1649f86c-26bc-4eb0-9355-036b28c1f97c/messages/
+INFO:root:2025-09-26 16:03:56.124380 - User: AnonymousUser - Path: /api/conversations/1649f86c-26bc-4eb0-9355-036b28c1f97c/messages/
+INFO:root:2025-09-26 16:03:59.119919 - User: AnonymousUser - Path: /api/conversations/1649f86c-26bc-4eb0-9355-036b28c1f97c/messages/
+INFO:root:2025-09-26 16:04:01.306653 - User: AnonymousUser - Path: /api/conversations/1649f86c-26bc-4eb0-9355-036b28c1f97c/messages/
+INFO:root:2025-09-26 16:04:03.835012 - User: AnonymousUser - Path: /api/conversations/1649f86c-26bc-4eb0-9355-036b28c1f97c/messages/
+INFO:root:2025-09-26 16:04:06.388202 - User: AnonymousUser - Path: /api/conversations/1649f86c-26bc-4eb0-9355-036b28c1f97c/messages/
+WARNING:django.request:Too Many Requests: /api/conversations/1649f86c-26bc-4eb0-9355-036b28c1f97c/messages/
+INFO:root:2025-09-26 16:04:26.577406 - User: AnonymousUser - Path: /api/conversations/1649f86c-26bc-4eb0-9355-036b28c1f97c/messages/
+WARNING:django.request:Too Many Requests: /api/conversations/1649f86c-26bc-4eb0-9355-036b28c1f97c/messages/
+INFO:root:2025-09-26 16:05:12.466333 - User: AnonymousUser - Path: /api/conversations/1649f86c-26bc-4eb0-9355-036b28c1f97c/messages/
+INFO:root:2025-09-26 16:11:23.864656 - User: AnonymousUser - Path: /api/conversations/
+INFO:root:2025-09-26 16:12:48.308581 - User: AnonymousUser - Path: /api/conversations/1649f86c-26bc-4eb0-9355-036b28c1f97c/messages/
+INFO:django.utils.autoreload:C:\Users\leebo\Desktop\alx-prodev-backend\alx-backend-python\Django-Middleware-0x03\chats\middleware.py changed, reloading.
+INFO:root:2025-09-26 16:16:40.221949 - User: AnonymousUser - Path: /api/conversations/
+WARNING:django.request:Unauthorized: /api/conversations/
+INFO:root:2025-09-26 16:16:51.213082 - User: AnonymousUser - Path: /api/auth/login/
+INFO:root:2025-09-26 16:17:13.946254 - User: AnonymousUser - Path: /api/conversations/
+WARNING:django.request:Unauthorized: /api/conversations/
+INFO:root:2025-09-26 16:17:30.942844 - User: AnonymousUser - Path: /api/conversations/
+WARNING:django.request:Unauthorized: /api/conversations/
+INFO:django.utils.autoreload:C:\Users\leebo\Desktop\alx-prodev-backend\alx-backend-python\Django-Middleware-0x03\chats\middleware.py changed, reloading.
+INFO:root:2025-09-26 16:21:40.412117 - User: AnonymousUser - Path: /api/conversations/
+WARNING:django.request:Unauthorized: /api/conversations/
+INFO:django.utils.autoreload:C:\Users\leebo\Desktop\alx-prodev-backend\alx-backend-python\Django-Middleware-0x03\chats\middleware.py changed, reloading.
+INFO:root:2025-09-26 16:22:48.643257 - User: AnonymousUser - Path: /api/conversations/
+WARNING:django.request:Unauthorized: /api/conversations/
+INFO:django.utils.autoreload:C:\Users\leebo\Desktop\alx-prodev-backend\alx-backend-python\Django-Middleware-0x03\chats\permissions.py changed, reloading.
+INFO:root:2025-09-26 16:33:14.717683 - User: AnonymousUser - Path: /api/conversations/
+WARNING:django.request:Unauthorized: /api/conversations/
+INFO:django.utils.autoreload:C:\Users\leebo\Desktop\alx-prodev-backend\alx-backend-python\Django-Middleware-0x03\messaging_app\settings.py changed, reloading.
