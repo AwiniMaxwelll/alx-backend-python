@@ -1,0 +1,1912 @@
+
+{
+	"info": {
+		"_postman_id": "c8c03331-f15f-4332-91a3-bf56eabd335c",
+		"name": "Messaging App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22984536"
+	},
+	"item": [
+		{
+			"name": "Register New User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"first_name\": \"Bob\",\r\n    \"last_name\": \"Wilson\",\r\n    \"email\": \"bob@example.com\",\r\n    \"password\": \"securepassword123\"\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/auth/register/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"auth",
+						"register",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Register New User",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"first_name\": \"Aniebiet\",\r\n    \"last_name\": \"Afia\",\r\n    \"email\": \"aniebietafia87@gmail.com\",\r\n    \"password\": \"securepassword123\",\r\n    \"phone_number\": \"08027872415\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/register/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"register",
+								""
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 24 Sep 2025 19:05:30 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.13.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, origin, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "OPTIONS, POST"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "832"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"user\": {\n        \"user_id\": \"eca45aa9-bf25-443d-81bc-abcaf975de8d\",\n        \"first_name\": \"Aniebiet\",\n        \"last_name\": \"Afia\",\n        \"email\": \"aniebietafia87@gmail.com\",\n        \"phone_number\": \"08027872415\",\n        \"role\": \"guest\",\n        \"full_name\": \"Aniebiet Afia\",\n        \"display_name\": \"Aniebiet Afia\"\n    },\n    \"tokens\": {\n        \"refresh\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1OTM0NTUyOSwiaWF0IjoxNzU4NzQwNzI5LCJqdGkiOiI4ZmNmZWU1NzA5NDE0YTI3OGRhNWE1NWE0MWViOTAzZSIsInVzZXJfaWQiOiJlY2E0NWFhOS1iZjI1LTQ0M2QtODFiYy1hYmNhZjk3NWRlOGQifQ.ylW1FIPN4ChyXUl1Hn-Ypp2l2kWeRsgD3bHA5T0-sbs\",\n        \"access\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU4NzQ0MzI5LCJpYXQiOjE3NTg3NDA3MzAsImp0aSI6ImUyZGRiOTUxNzAxOTQwYzc4ODgxYjI4NWI4YWJjZDFhIiwidXNlcl9pZCI6ImVjYTQ1YWE5LWJmMjUtNDQzZC04MWJjLWFiY2FmOTc1ZGU4ZCJ9.tUUI4f8s94PllU1_Pr7OD9x3hORO_3j0amijFh1iu_c\"\n    }\n}"
+				},
+				{
+					"name": "Register New User 2",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"first_name\": \"Michael\",\r\n    \"last_name\": \"Whyte\",\r\n    \"email\": \"afiaaniebiet0@gmail.com\",\r\n    \"password\": \"securepassword123\",\r\n    \"phone_number\": \"08067581927\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/register/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"register",
+								""
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 24 Sep 2025 19:08:45 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.13.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, origin, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "OPTIONS, POST"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "831"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"user\": {\n        \"user_id\": \"b6df6235-dea1-4bd0-80a4-c8c79d425e9c\",\n        \"first_name\": \"Michael\",\n        \"last_name\": \"Whyte\",\n        \"email\": \"afiaaniebiet0@gmail.com\",\n        \"phone_number\": \"08067581927\",\n        \"role\": \"guest\",\n        \"full_name\": \"Michael Whyte\",\n        \"display_name\": \"Michael Whyte\"\n    },\n    \"tokens\": {\n        \"refresh\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1OTM0NTcyNSwiaWF0IjoxNzU4NzQwOTI1LCJqdGkiOiI3NWEyZTU3MTU1Yzc0NWY0YjJlMTI1OTE4YjAwYmJiZCIsInVzZXJfaWQiOiJiNmRmNjIzNS1kZWExLTRiZDAtODBhNC1jOGM3OWQ0MjVlOWMifQ.68u8dwUquwBspzRHS42f7zHcEgPzSOEy0cRUkxZMklQ\",\n        \"access\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU4NzQ0NTI1LCJpYXQiOjE3NTg3NDA5MjUsImp0aSI6Ijk1MmI4YjA3OTdmNjRkOGVhZWY1YjYwYWM1MGU5Nzg0IiwidXNlcl9pZCI6ImI2ZGY2MjM1LWRlYTEtNGJkMC04MGE0LWM4Yzc5ZDQyNWU5YyJ9.LQ5QLqXC3f-EQ2w6x96ts0n4iolALFFe_-tSQ4DT700\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "User Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"afiaaniebiet0@gmail.com\",\r\n    \"password\": \"securepassword123\"\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/auth/login/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"auth",
+						"login",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Login Response",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"aniebietafia87@gmail.com\",\r\n    \"password\": \"securepassword123\"\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 24 Sep 2025 19:11:42 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.13.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, origin, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "OPTIONS, POST"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "832"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"user\": {\n        \"user_id\": \"eca45aa9-bf25-443d-81bc-abcaf975de8d\",\n        \"first_name\": \"Aniebiet\",\n        \"last_name\": \"Afia\",\n        \"email\": \"aniebietafia87@gmail.com\",\n        \"phone_number\": \"08027872415\",\n        \"role\": \"guest\",\n        \"full_name\": \"Aniebiet Afia\",\n        \"display_name\": \"Aniebiet Afia\"\n    },\n    \"tokens\": {\n        \"refresh\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1OTM0NTkwMiwiaWF0IjoxNzU4NzQxMTAyLCJqdGkiOiIyZDc5ZDliOGNiZWE0NTBkOWU4MzdlZGU2N2RjOGQ0MyIsInVzZXJfaWQiOiJlY2E0NWFhOS1iZjI1LTQ0M2QtODFiYy1hYmNhZjk3NWRlOGQifQ.vbY4tKLoFzbCR1Iys1iXL5AH6Vlr_qJRUczdJ7VRHa0\",\n        \"access\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU4NzQ0NzAyLCJpYXQiOjE3NTg3NDExMDIsImp0aSI6ImE2YjE3MTY1YzdmMDQ5ZWQ5NTZlNTlmZTIwOGM1MzY1IiwidXNlcl9pZCI6ImVjYTQ1YWE5LWJmMjUtNDQzZC04MWJjLWFiY2FmOTc1ZGU4ZCJ9.9_0izeB7PPsv3QLU6YFXuk6DB18368QNYGZVbLF6svE\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Fetch Conversations",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{bob_access_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"aniebietafia87@gmail.com\",\r\n    \"password\": \"securepassword123\"\r\n}\r\n\r\n"
+				},
+				"url": {
+					"raw": "{{base_url}}/conversations/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"conversations",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Unauthorized Access to Conversations",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"aniebietafia87@gmail.com\",\r\n    \"password\": \"securepassword123\"\r\n}\r\n\r\n"
+						},
+						"url": {
+							"raw": "{{base_url}}/conversations/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"conversations",
+								""
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 24 Sep 2025 19:14:20 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.13.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, origin, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, POST, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "58"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"detail\": \"Authentication credentials were not provided.\"\n}"
+				},
+				{
+					"name": "Unauthorized Conversations Access",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"aniebietafia87@gmail.com\",\r\n    \"password\": \"securepassword123\"\r\n}\r\n\r\n"
+						},
+						"url": {
+							"raw": "{{base_url}}/conversations/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"conversations",
+								""
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 24 Sep 2025 19:15:17 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.13.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, origin, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, POST, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "58"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"detail\": \"Authentication credentials were not provided.\"\n}"
+				},
+				{
+					"name": "Successful Conversations",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"aniebietafia87@gmail.com\",\r\n    \"password\": \"securepassword123\"\r\n}\r\n\r\n"
+						},
+						"url": {
+							"raw": "{{base_url}}/conversations/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"conversations",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 24 Sep 2025 19:17:20 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.13.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, origin, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, POST, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "100"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"count\": 0,\n    \"next\": null,\n    \"previous\": null,\n    \"total_pages\": 1,\n    \"current_page\": 1,\n    \"page_size\": 10,\n    \"results\": []\n}"
+				},
+				{
+					"name": "Fetching Messages as a Participant",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"aniebietafia87@gmail.com\",\r\n    \"password\": \"securepassword123\"\r\n}\r\n\r\n"
+						},
+						"url": {
+							"raw": "{{base_url}}/conversations/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"conversations",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 24 Sep 2025 19:34:48 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.13.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, origin, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, POST, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "2328"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"count\": 1,\n    \"next\": null,\n    \"previous\": null,\n    \"total_pages\": 1,\n    \"current_page\": 1,\n    \"page_size\": 10,\n    \"results\": [\n        {\n            \"conversation_id\": \"7210f661-87b7-4211-88da-5841972795e9\",\n            \"participants\": [\n                {\n                    \"user_id\": \"b6df6235-dea1-4bd0-80a4-c8c79d425e9c\",\n                    \"first_name\": \"Michael\",\n                    \"last_name\": \"Whyte\",\n                    \"email\": \"afiaaniebiet0@gmail.com\",\n                    \"phone_number\": \"08067581927\",\n                    \"role\": \"guest\",\n                    \"full_name\": \"Michael Whyte\",\n                    \"display_name\": \"Michael Whyte\"\n                },\n                {\n                    \"user_id\": \"eca45aa9-bf25-443d-81bc-abcaf975de8d\",\n                    \"first_name\": \"Aniebiet\",\n                    \"last_name\": \"Afia\",\n                    \"email\": \"aniebietafia87@gmail.com\",\n                    \"phone_number\": \"08027872415\",\n                    \"role\": \"guest\",\n                    \"full_name\": \"Aniebiet Afia\",\n                    \"display_name\": \"Aniebiet Afia\"\n                }\n            ],\n            \"participant_count\": 2,\n            \"messages\": [\n                {\n                    \"message_id\": \"1fbc4131-8948-4ba0-b1ef-d46906ae7918\",\n                    \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n                    \"sender\": \"aniebietafia87@gmail.com\",\n                    \"sender_name\": \"Aniebiet Afia\",\n                    \"message_body\": \"Hello Michael! This is my first message.\",\n                    \"sent_at\": \"2025-09-24T19:24:06.591508Z\"\n                },\n                {\n                    \"message_id\": \"d1e85d31-8be0-4fed-a730-39de85946ab4\",\n                    \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n                    \"sender\": \"aniebietafia87@gmail.com\",\n                    \"sender_name\": \"Aniebiet Afia\",\n                    \"message_body\": \"How are you doing today?\",\n                    \"sent_at\": \"2025-09-24T19:25:08.377946Z\"\n                },\n                {\n                    \"message_id\": \"c57aaec0-ca3b-4463-9480-9fe001132bb1\",\n                    \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n                    \"sender\": \"aniebietafia87@gmail.com\",\n                    \"sender_name\": \"Aniebiet Afia\",\n                    \"message_body\": \"Are you still down for tomorrow?\",\n                    \"sent_at\": \"2025-09-24T19:28:28.187853Z\"\n                },\n                {\n                    \"message_id\": \"f5162f99-aba8-47ff-a09f-b7e326fa01a3\",\n                    \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n                    \"sender\": \"aniebietafia87@gmail.com\",\n                    \"sender_name\": \"Aniebiet Afia\",\n                    \"message_body\": \"We are already in the next stage of the competition\",\n                    \"sent_at\": \"2025-09-24T19:28:53.713349Z\"\n                },\n                {\n                    \"message_id\": \"61296fc9-486f-42fc-b8be-964f2fd82424\",\n                    \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n                    \"sender\": \"aniebietafia87@gmail.com\",\n                    \"sender_name\": \"Aniebiet Afia\",\n                    \"message_body\": \"All hands must be on deck now\",\n                    \"sent_at\": \"2025-09-24T19:29:11.528391Z\"\n                }\n            ],\n            \"last_message\": {\n                \"message_id\": \"61296fc9-486f-42fc-b8be-964f2fd82424\",\n                \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n                \"sender\": \"aniebietafia87@gmail.com\",\n                \"sender_name\": \"Aniebiet Afia\",\n                \"message_body\": \"All hands must be on deck now\",\n                \"sent_at\": \"2025-09-24T19:29:11.528391Z\"\n            },\n            \"created_at\": \"2025-09-24T19:20:38.788047Z\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Create Conversation",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"participants\": [\"afiaaniebiet0@gmail.com\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/conversations/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"conversations",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Starting Conversation",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"participants\": [\"afiaaniebiet0@gmail.com\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/conversations/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"conversations",
+								""
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 24 Sep 2025 19:20:39 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.13.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, origin, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, POST, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "637"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"conversation_id\": \"7210f661-87b7-4211-88da-5841972795e9\",\n    \"participants\": [\n        {\n            \"user_id\": \"b6df6235-dea1-4bd0-80a4-c8c79d425e9c\",\n            \"first_name\": \"Michael\",\n            \"last_name\": \"Whyte\",\n            \"email\": \"afiaaniebiet0@gmail.com\",\n            \"phone_number\": \"08067581927\",\n            \"role\": \"guest\",\n            \"full_name\": \"Michael Whyte\",\n            \"display_name\": \"Michael Whyte\"\n        },\n        {\n            \"user_id\": \"eca45aa9-bf25-443d-81bc-abcaf975de8d\",\n            \"first_name\": \"Aniebiet\",\n            \"last_name\": \"Afia\",\n            \"email\": \"aniebietafia87@gmail.com\",\n            \"phone_number\": \"08027872415\",\n            \"role\": \"guest\",\n            \"full_name\": \"Aniebiet Afia\",\n            \"display_name\": \"Aniebiet Afia\"\n        }\n    ],\n    \"participant_count\": 2,\n    \"messages\": [],\n    \"last_message\": null,\n    \"created_at\": \"2025-09-24T19:20:38.788047Z\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Send Message in Conversation",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"message_body\": \"All hands must be on deck now\"\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/conversations/{{conversation_id}}/messages/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"conversations",
+						"{{conversation_id}}",
+						"messages",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Sending Message in Conversation",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"message_body\": \"Hello Michael! This is my first message.\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/conversations/{{conversation_id}}/messages/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"conversations",
+								"{{conversation_id}}",
+								"messages",
+								""
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 24 Sep 2025 19:24:06 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.13.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, origin, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, POST, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "271"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message_id\": \"1fbc4131-8948-4ba0-b1ef-d46906ae7918\",\n    \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n    \"sender\": \"aniebietafia87@gmail.com\",\n    \"sender_name\": \"Aniebiet Afia\",\n    \"message_body\": \"Hello Michael! This is my first message.\",\n    \"sent_at\": \"2025-09-24T19:24:06.591508Z\"\n}"
+				},
+				{
+					"name": "More message in Conversation",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"message_body\": \"How are you doing today?\"\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/conversations/{{conversation_id}}/messages/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"conversations",
+								"{{conversation_id}}",
+								"messages",
+								""
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 24 Sep 2025 19:25:08 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.13.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, origin, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, POST, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "255"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message_id\": \"d1e85d31-8be0-4fed-a730-39de85946ab4\",\n    \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n    \"sender\": \"aniebietafia87@gmail.com\",\n    \"sender_name\": \"Aniebiet Afia\",\n    \"message_body\": \"How are you doing today?\",\n    \"sent_at\": \"2025-09-24T19:25:08.377946Z\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Pagination & Filtering",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{bob_access_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/conversations/{{conversation_id}}/messages/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"conversations",
+						"{{conversation_id}}",
+						"messages",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Fetching all Messages in Conversation",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/conversations/{{conversation_id}}/messages/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"conversations",
+								"{{conversation_id}}",
+								"messages",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 24 Sep 2025 19:29:16 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.13.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, origin, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, POST, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1435"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"count\": 5,\n    \"next\": null,\n    \"previous\": null,\n    \"total_pages\": 1,\n    \"current_page\": 1,\n    \"page_size\": 20,\n    \"results\": [\n        {\n            \"message_id\": \"1fbc4131-8948-4ba0-b1ef-d46906ae7918\",\n            \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n            \"sender\": \"aniebietafia87@gmail.com\",\n            \"sender_name\": \"Aniebiet Afia\",\n            \"message_body\": \"Hello Michael! This is my first message.\",\n            \"sent_at\": \"2025-09-24T19:24:06.591508Z\"\n        },\n        {\n            \"message_id\": \"d1e85d31-8be0-4fed-a730-39de85946ab4\",\n            \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n            \"sender\": \"aniebietafia87@gmail.com\",\n            \"sender_name\": \"Aniebiet Afia\",\n            \"message_body\": \"How are you doing today?\",\n            \"sent_at\": \"2025-09-24T19:25:08.377946Z\"\n        },\n        {\n            \"message_id\": \"c57aaec0-ca3b-4463-9480-9fe001132bb1\",\n            \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n            \"sender\": \"aniebietafia87@gmail.com\",\n            \"sender_name\": \"Aniebiet Afia\",\n            \"message_body\": \"Are you still down for tomorrow?\",\n            \"sent_at\": \"2025-09-24T19:28:28.187853Z\"\n        },\n        {\n            \"message_id\": \"f5162f99-aba8-47ff-a09f-b7e326fa01a3\",\n            \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n            \"sender\": \"aniebietafia87@gmail.com\",\n            \"sender_name\": \"Aniebiet Afia\",\n            \"message_body\": \"We are already in the next stage of the competition\",\n            \"sent_at\": \"2025-09-24T19:28:53.713349Z\"\n        },\n        {\n            \"message_id\": \"61296fc9-486f-42fc-b8be-964f2fd82424\",\n            \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n            \"sender\": \"aniebietafia87@gmail.com\",\n            \"sender_name\": \"Aniebiet Afia\",\n            \"message_body\": \"All hands must be on deck now\",\n            \"sent_at\": \"2025-09-24T19:29:11.528391Z\"\n        }\n    ]\n}"
+				},
+				{
+					"name": "Pagination by 5",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/conversations/{{conversation_id}}/messages/?page=1&page_size=5",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"conversations",
+								"{{conversation_id}}",
+								"messages",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "page_size",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 24 Sep 2025 19:30:10 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.13.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, origin, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, POST, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1435"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"count\": 5,\n    \"next\": null,\n    \"previous\": null,\n    \"total_pages\": 1,\n    \"current_page\": 1,\n    \"page_size\": 20,\n    \"results\": [\n        {\n            \"message_id\": \"1fbc4131-8948-4ba0-b1ef-d46906ae7918\",\n            \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n            \"sender\": \"aniebietafia87@gmail.com\",\n            \"sender_name\": \"Aniebiet Afia\",\n            \"message_body\": \"Hello Michael! This is my first message.\",\n            \"sent_at\": \"2025-09-24T19:24:06.591508Z\"\n        },\n        {\n            \"message_id\": \"d1e85d31-8be0-4fed-a730-39de85946ab4\",\n            \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n            \"sender\": \"aniebietafia87@gmail.com\",\n            \"sender_name\": \"Aniebiet Afia\",\n            \"message_body\": \"How are you doing today?\",\n            \"sent_at\": \"2025-09-24T19:25:08.377946Z\"\n        },\n        {\n            \"message_id\": \"c57aaec0-ca3b-4463-9480-9fe001132bb1\",\n            \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n            \"sender\": \"aniebietafia87@gmail.com\",\n            \"sender_name\": \"Aniebiet Afia\",\n            \"message_body\": \"Are you still down for tomorrow?\",\n            \"sent_at\": \"2025-09-24T19:28:28.187853Z\"\n        },\n        {\n            \"message_id\": \"f5162f99-aba8-47ff-a09f-b7e326fa01a3\",\n            \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n            \"sender\": \"aniebietafia87@gmail.com\",\n            \"sender_name\": \"Aniebiet Afia\",\n            \"message_body\": \"We are already in the next stage of the competition\",\n            \"sent_at\": \"2025-09-24T19:28:53.713349Z\"\n        },\n        {\n            \"message_id\": \"61296fc9-486f-42fc-b8be-964f2fd82424\",\n            \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n            \"sender\": \"aniebietafia87@gmail.com\",\n            \"sender_name\": \"Aniebiet Afia\",\n            \"message_body\": \"All hands must be on deck now\",\n            \"sent_at\": \"2025-09-24T19:29:11.528391Z\"\n        }\n    ]\n}"
+				},
+				{
+					"name": "Filtering by Sender",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/conversations/{{conversation_id}}/messages/?sender=aniebietafia87@gmail.com",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"conversations",
+								"{{conversation_id}}",
+								"messages",
+								""
+							],
+							"query": [
+								{
+									"key": "sender",
+									"value": "aniebietafia87@gmail.com"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 24 Sep 2025 19:31:16 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.13.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, origin, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, POST, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1435"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"count\": 5,\n    \"next\": null,\n    \"previous\": null,\n    \"total_pages\": 1,\n    \"current_page\": 1,\n    \"page_size\": 20,\n    \"results\": [\n        {\n            \"message_id\": \"1fbc4131-8948-4ba0-b1ef-d46906ae7918\",\n            \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n            \"sender\": \"aniebietafia87@gmail.com\",\n            \"sender_name\": \"Aniebiet Afia\",\n            \"message_body\": \"Hello Michael! This is my first message.\",\n            \"sent_at\": \"2025-09-24T19:24:06.591508Z\"\n        },\n        {\n            \"message_id\": \"d1e85d31-8be0-4fed-a730-39de85946ab4\",\n            \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n            \"sender\": \"aniebietafia87@gmail.com\",\n            \"sender_name\": \"Aniebiet Afia\",\n            \"message_body\": \"How are you doing today?\",\n            \"sent_at\": \"2025-09-24T19:25:08.377946Z\"\n        },\n        {\n            \"message_id\": \"c57aaec0-ca3b-4463-9480-9fe001132bb1\",\n            \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n            \"sender\": \"aniebietafia87@gmail.com\",\n            \"sender_name\": \"Aniebiet Afia\",\n            \"message_body\": \"Are you still down for tomorrow?\",\n            \"sent_at\": \"2025-09-24T19:28:28.187853Z\"\n        },\n        {\n            \"message_id\": \"f5162f99-aba8-47ff-a09f-b7e326fa01a3\",\n            \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n            \"sender\": \"aniebietafia87@gmail.com\",\n            \"sender_name\": \"Aniebiet Afia\",\n            \"message_body\": \"We are already in the next stage of the competition\",\n            \"sent_at\": \"2025-09-24T19:28:53.713349Z\"\n        },\n        {\n            \"message_id\": \"61296fc9-486f-42fc-b8be-964f2fd82424\",\n            \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n            \"sender\": \"aniebietafia87@gmail.com\",\n            \"sender_name\": \"Aniebiet Afia\",\n            \"message_body\": \"All hands must be on deck now\",\n            \"sent_at\": \"2025-09-24T19:29:11.528391Z\"\n        }\n    ]\n}"
+				},
+				{
+					"name": "Filtering by Text",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/conversations/{{conversation_id}}/messages/?message_body=hello",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"conversations",
+								"{{conversation_id}}",
+								"messages",
+								""
+							],
+							"query": [
+								{
+									"key": "message_body",
+									"value": "hello"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 24 Sep 2025 19:32:06 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.13.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, origin, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, POST, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "371"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"count\": 1,\n    \"next\": null,\n    \"previous\": null,\n    \"total_pages\": 1,\n    \"current_page\": 1,\n    \"page_size\": 20,\n    \"results\": [\n        {\n            \"message_id\": \"1fbc4131-8948-4ba0-b1ef-d46906ae7918\",\n            \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n            \"sender\": \"aniebietafia87@gmail.com\",\n            \"sender_name\": \"Aniebiet Afia\",\n            \"message_body\": \"Hello Michael! This is my first message.\",\n            \"sent_at\": \"2025-09-24T19:24:06.591508Z\"\n        }\n    ]\n}"
+				},
+				{
+					"name": "Filtering by Date",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/conversations/{{conversation_id}}/messages/?sent_after=2025-01-01",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"conversations",
+								"{{conversation_id}}",
+								"messages",
+								""
+							],
+							"query": [
+								{
+									"key": "sent_after",
+									"value": "2025-01-01"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 24 Sep 2025 19:33:04 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.13.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, origin, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, POST, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1435"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"count\": 5,\n    \"next\": null,\n    \"previous\": null,\n    \"total_pages\": 1,\n    \"current_page\": 1,\n    \"page_size\": 20,\n    \"results\": [\n        {\n            \"message_id\": \"1fbc4131-8948-4ba0-b1ef-d46906ae7918\",\n            \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n            \"sender\": \"aniebietafia87@gmail.com\",\n            \"sender_name\": \"Aniebiet Afia\",\n            \"message_body\": \"Hello Michael! This is my first message.\",\n            \"sent_at\": \"2025-09-24T19:24:06.591508Z\"\n        },\n        {\n            \"message_id\": \"d1e85d31-8be0-4fed-a730-39de85946ab4\",\n            \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n            \"sender\": \"aniebietafia87@gmail.com\",\n            \"sender_name\": \"Aniebiet Afia\",\n            \"message_body\": \"How are you doing today?\",\n            \"sent_at\": \"2025-09-24T19:25:08.377946Z\"\n        },\n        {\n            \"message_id\": \"c57aaec0-ca3b-4463-9480-9fe001132bb1\",\n            \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n            \"sender\": \"aniebietafia87@gmail.com\",\n            \"sender_name\": \"Aniebiet Afia\",\n            \"message_body\": \"Are you still down for tomorrow?\",\n            \"sent_at\": \"2025-09-24T19:28:28.187853Z\"\n        },\n        {\n            \"message_id\": \"f5162f99-aba8-47ff-a09f-b7e326fa01a3\",\n            \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n            \"sender\": \"aniebietafia87@gmail.com\",\n            \"sender_name\": \"Aniebiet Afia\",\n            \"message_body\": \"We are already in the next stage of the competition\",\n            \"sent_at\": \"2025-09-24T19:28:53.713349Z\"\n        },\n        {\n            \"message_id\": \"61296fc9-486f-42fc-b8be-964f2fd82424\",\n            \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n            \"sender\": \"aniebietafia87@gmail.com\",\n            \"sender_name\": \"Aniebiet Afia\",\n            \"message_body\": \"All hands must be on deck now\",\n            \"sent_at\": \"2025-09-24T19:29:11.528391Z\"\n        }\n    ]\n}"
+				},
+				{
+					"name": "Non-Participant in Conversation",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bob_access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/conversations/{{conversation_id}}/messages/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"conversations",
+								"{{conversation_id}}",
+								"messages",
+								""
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 24 Sep 2025 19:42:49 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.13.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, origin, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, POST, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "63"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"detail\": \"You do not have permission to perform this action.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Update Message",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{michael_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"message_body\": \"Hello Michael! Attempting to update message.\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/conversations/{{conversation_id}}/messages/{{message_id}}/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"conversations",
+						"{{conversation_id}}",
+						"messages",
+						"{{message_id}}",
+						""
+					],
+					"query": [
+						{
+							"key": "Auth",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success Update Message",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"message_body\": \"Hello Michael! This is my updated first message.\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/conversations/{{conversation_id}}/messages/{{message_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"conversations",
+								"{{conversation_id}}",
+								"messages",
+								"{{message_id}}",
+								""
+							],
+							"query": [
+								{
+									"key": "Auth",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 24 Sep 2025 19:46:27 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.13.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, origin, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, PUT, PATCH, DELETE, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "279"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message_id\": \"61296fc9-486f-42fc-b8be-964f2fd82424\",\n    \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n    \"sender\": \"aniebietafia87@gmail.com\",\n    \"sender_name\": \"Aniebiet Afia\",\n    \"message_body\": \"Hello Michael! This is my updated first message.\",\n    \"sent_at\": \"2025-09-24T19:29:11.528391Z\"\n}"
+				},
+				{
+					"name": "Fail - Non-Sender trying to update Message",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{michael_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"message_body\": \"Hello Michael! Attempting to update message.\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/conversations/{{conversation_id}}/messages/{{message_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"conversations",
+								"{{conversation_id}}",
+								"messages",
+								"{{message_id}}",
+								""
+							],
+							"query": [
+								{
+									"key": "Auth",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 24 Sep 2025 19:48:02 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.13.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, origin, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, PUT, PATCH, DELETE, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "63"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"detail\": \"You do not have permission to perform this action.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Conversation Filtering",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/conversations/?participant=afiaaniebiet0@gmail.com",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"conversations",
+						""
+					],
+					"query": [
+						{
+							"key": "participant",
+							"value": "afiaaniebiet0@gmail.com"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Filtering By Participant",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/conversations/?participant=afiaaniebiet0@gmail.com",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"conversations",
+								""
+							],
+							"query": [
+								{
+									"key": "participant",
+									"value": "afiaaniebiet0@gmail.com"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 24 Sep 2025 19:50:33 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.13.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, origin, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, POST, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "2366"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"count\": 1,\n    \"next\": null,\n    \"previous\": null,\n    \"total_pages\": 1,\n    \"current_page\": 1,\n    \"page_size\": 10,\n    \"results\": [\n        {\n            \"conversation_id\": \"7210f661-87b7-4211-88da-5841972795e9\",\n            \"participants\": [\n                {\n                    \"user_id\": \"b6df6235-dea1-4bd0-80a4-c8c79d425e9c\",\n                    \"first_name\": \"Michael\",\n                    \"last_name\": \"Whyte\",\n                    \"email\": \"afiaaniebiet0@gmail.com\",\n                    \"phone_number\": \"08067581927\",\n                    \"role\": \"guest\",\n                    \"full_name\": \"Michael Whyte\",\n                    \"display_name\": \"Michael Whyte\"\n                },\n                {\n                    \"user_id\": \"eca45aa9-bf25-443d-81bc-abcaf975de8d\",\n                    \"first_name\": \"Aniebiet\",\n                    \"last_name\": \"Afia\",\n                    \"email\": \"aniebietafia87@gmail.com\",\n                    \"phone_number\": \"08027872415\",\n                    \"role\": \"guest\",\n                    \"full_name\": \"Aniebiet Afia\",\n                    \"display_name\": \"Aniebiet Afia\"\n                }\n            ],\n            \"participant_count\": 2,\n            \"messages\": [\n                {\n                    \"message_id\": \"1fbc4131-8948-4ba0-b1ef-d46906ae7918\",\n                    \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n                    \"sender\": \"aniebietafia87@gmail.com\",\n                    \"sender_name\": \"Aniebiet Afia\",\n                    \"message_body\": \"Hello Michael! This is my first message.\",\n                    \"sent_at\": \"2025-09-24T19:24:06.591508Z\"\n                },\n                {\n                    \"message_id\": \"d1e85d31-8be0-4fed-a730-39de85946ab4\",\n                    \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n                    \"sender\": \"aniebietafia87@gmail.com\",\n                    \"sender_name\": \"Aniebiet Afia\",\n                    \"message_body\": \"How are you doing today?\",\n                    \"sent_at\": \"2025-09-24T19:25:08.377946Z\"\n                },\n                {\n                    \"message_id\": \"c57aaec0-ca3b-4463-9480-9fe001132bb1\",\n                    \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n                    \"sender\": \"aniebietafia87@gmail.com\",\n                    \"sender_name\": \"Aniebiet Afia\",\n                    \"message_body\": \"Are you still down for tomorrow?\",\n                    \"sent_at\": \"2025-09-24T19:28:28.187853Z\"\n                },\n                {\n                    \"message_id\": \"f5162f99-aba8-47ff-a09f-b7e326fa01a3\",\n                    \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n                    \"sender\": \"aniebietafia87@gmail.com\",\n                    \"sender_name\": \"Aniebiet Afia\",\n                    \"message_body\": \"We are already in the next stage of the competition\",\n                    \"sent_at\": \"2025-09-24T19:28:53.713349Z\"\n                },\n                {\n                    \"message_id\": \"61296fc9-486f-42fc-b8be-964f2fd82424\",\n                    \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n                    \"sender\": \"aniebietafia87@gmail.com\",\n                    \"sender_name\": \"Aniebiet Afia\",\n                    \"message_body\": \"Hello Michael! This is my updated first message.\",\n                    \"sent_at\": \"2025-09-24T19:29:11.528391Z\"\n                }\n            ],\n            \"last_message\": {\n                \"message_id\": \"61296fc9-486f-42fc-b8be-964f2fd82424\",\n                \"conversation\": \"7210f661-87b7-4211-88da-5841972795e9\",\n                \"sender\": \"aniebietafia87@gmail.com\",\n                \"sender_name\": \"Aniebiet Afia\",\n                \"message_body\": \"Hello Michael! This is my updated first message.\",\n                \"sent_at\": \"2025-09-24T19:29:11.528391Z\"\n            },\n            \"created_at\": \"2025-09-24T19:20:38.788047Z\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Refresh Token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"refresh\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1OTM0NzIzNywiaWF0IjoxNzU4NzQyNDM3LCJqdGkiOiIzYjY0MzQwMDlmMWI0YTM3OTEzMGRhMDljZmI2Y2QwMiIsInVzZXJfaWQiOiJiNmRmNjIzNS1kZWExLTRiZDAtODBhNC1jOGM3OWQ0MjVlOWMifQ.gf9FyNVN5Lug0RGVerIEP1wSG3E57b30Mu1dl2VG0kg\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/auth/token/refresh/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"auth",
+						"token",
+						"refresh",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Refresh Token Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refresh\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1OTM0NzIzNywiaWF0IjoxNzU4NzQyNDM3LCJqdGkiOiIzYjY0MzQwMDlmMWI0YTM3OTEzMGRhMDljZmI2Y2QwMiIsInVzZXJfaWQiOiJiNmRmNjIzNS1kZWExLTRiZDAtODBhNC1jOGM3OWQ0MjVlOWMifQ.gf9FyNVN5Lug0RGVerIEP1wSG3E57b30Mu1dl2VG0kg\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/token/refresh/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"token",
+								"refresh",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 24 Sep 2025 19:53:33 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.13.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, origin"
+						},
+						{
+							"key": "Allow",
+							"value": "POST, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "582"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"access\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU4NzQ3MjEzLCJpYXQiOjE3NTg3NDM2MTMsImp0aSI6IjhjOWNhYjQxMTczMDQwODZhYjFiMjNjNDc4Yzg0ZTU5IiwidXNlcl9pZCI6ImI2ZGY2MjM1LWRlYTEtNGJkMC04MGE0LWM4Yzc5ZDQyNWU5YyJ9.MwzsgEQrxKIrjv1opI9MYhJ3Unk6PSBCJahbII4xXqM\",\n    \"refresh\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1OTM0ODQxMywiaWF0IjoxNzU4NzQzNjEzLCJqdGkiOiI3YTUxYjFhMjEyMDI0MjIxOTQ0OTQ3NmNjNDU5NzVhMSIsInVzZXJfaWQiOiJiNmRmNjIzNS1kZWExLTRiZDAtODBhNC1jOGM3OWQ0MjVlOWMifQ.LmIAerEgVUqBN6YG_XYH7bfehdur3UK4ZJAG7EqTiIc\"\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": ""
+		},
+		{
+			"key": "access_token",
+			"value": ""
+		},
+		{
+			"key": "conversation_id",
+			"value": ""
+		},
+		{
+			"key": "michael_token",
+			"value": ""
+		},
+		{
+			"key": "bob_access_token",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "message_id",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
+
