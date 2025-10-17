@@ -41,5 +41,6 @@ echo "✓ Cluster is running correctly."
 echo "4. Retrieving pods in all namespaces..."
 kubectl get pods --all-namespaces
 
-echo "=== Script completed successfully ==="
+echo "=== Script completed successfully without errors==="
+
 
