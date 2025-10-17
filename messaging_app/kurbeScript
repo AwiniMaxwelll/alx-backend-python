@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# Script: kurbeScript
+# Description: Starts a Kubernetes cluster, verifies its status, and checks pods
+
+echo "=== Kubernetes Cluster Starter Script ==="
+
+# Function to check if a command exists
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# Check for Minikube installation
+echo "1. Checking Minikube installation..."
+if ! command_exists minikube; then
+    echo "Error: Minikube is not installed. Please install Minikube first."
+    echo "Visit https://minikube.sigs.k8s.io/docs/start/"
+    exit 1
+fi
+echo "✓ Minikube is installed."
+
+# Start Minikube cluster
+echo "2. Starting Kubernetes cluster..."
+if ! minikube status | grep -q "Running"; then
+    echo "Starting cluster (this may take a moment)..."
+    minikube start
+else
+    echo "✓ Cluster is already running."
+fi
+
+# Verify cluster status
+echo "3. Verifying cluster status..."
+kubectl cluster-info
+if [ $? -ne 0 ]; then
+    echo "Error: Failed to get cluster info. Cluster might not be healthy."
+    exit 1
+fi
+echo "✓ Cluster is running correctly."
+
+# Retrieve available pods
+echo "4. Retrieving pods in all namespaces..."
+kubectl get pods --all-namespaces
+
+echo "=== Script completed successfully ==="
+
