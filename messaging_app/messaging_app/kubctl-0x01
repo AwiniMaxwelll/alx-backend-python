@@ -1,0 +1,138 @@
+#!/bin/bash
+# kubctl-0x01 - Django App Scaling and Load Testing Script
+
+# Set variables
+DEPLOYMENT_NAME="messaging-app"  
+NAMESPACE="default"
+SERVICE_NAME="message-service" 
+PORT="8000"                        
+LOAD_TEST_DURATION="30s"           
+
+#Nice colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' 
+
+echo -e "${YELLOW}Starting messeging App Scaling and Load Testing...${NC}"
+
+# Function to check if command exists
+check_command() {
+    if ! command -v $1 &> /dev/null; then
+        echo -e "${RED}Error: $1 is not installed. Please install it first.${NC}"
+        exit 1
+    fi
+}
+
+# Check prerequisites
+echo -e "${YELLOW}Checking prerequisites...${NC}"
+check_command kubectl
+check_command wrk
+
+# Verify kubectl can connect to cluster
+echo -e "${YELLOW}Checking cluster connection...${NC}"
+if ! kubectl cluster-info &> /dev/null; then
+    echo -e "${RED}Error: Cannot connect to Kubernetes cluster. Please check your kubeconfig.${NC}"
+    exit 1
+fi
+
+echo -e "${GREEN}✓ All prerequisites met${NC}"
+
+# Step 1: Scale the deployment
+echo -e "\n${YELLOW}Step 1: Scaling deployment to 3 replicas...${NC}"
+kubectl scale deployment $DEPLOYMENT_NAME --replicas=3 -n $NAMESPACE
+
+if [ $? -eq 0 ]; then
+    echo -e "${GREEN}✓ Successfully scaled deployment to 3 replicas${NC}"
+else
+    echo -e "${RED}✗ Failed to scale deployment${NC}"
+    exit 1
+fi
+
+# Wait for pods to be ready
+echo -e "\n${YELLOW}Waiting for pods to be ready...${NC}"
+kubectl wait --for=condition=ready pod -l app=$DEPLOYMENT_NAME -n $NAMESPACE --timeout=120s
+
+if [ $? -eq 0 ]; then
+    echo -e "${GREEN}✓ All pods are ready${NC}"
+else
+    echo -e "${RED}✗ Pods failed to become ready within timeout${NC}"
+fi
+
+# Step 2: Verify multiple pods are running
+echo -e "\n${YELLOW}Step 2: Checking running pods...${NC}"
+kubectl get pods -n $NAMESPACE -l app=$DEPLOYMENT_NAME
+
+POD_COUNT=$(kubectl get pods -n $NAMESPACE -l app=$DEPLOYMENT_NAME --field-selector=status.phase=Running | grep -c "Running")
+
+if [ $POD_COUNT -eq 3 ]; then
+    echo -e "${GREEN}✓ Successfully running $POD_COUNT pods${NC}"
+else
+    echo -e "${RED}✗ Expected 3 pods but found $POD_COUNT${NC}"
+fi
+
+# Step 3: Perform load testing
+echo -e "\n${YELLOW}Step 3: Starting load testing...${NC}"
+
+# Get service 
+# If using NodePort, LoadBalancer, or Ingress, adjust accordingly
+SERVICE_URL=$(kubectl get service $SERVICE_NAME -n $NAMESPACE -o jsonpath='{.status.loadBalancer.ingress[0].ip}:{.spec.ports[0].port}')
+
+if [ -z "$SERVICE_URL" ]; then
+    # Alternative: Use port-forward if no external service
+    echo -e "${YELLOW}No external service found. Setting up port-forward...${NC}"
+    kubectl port-forward service/$SERVICE_NAME $PORT:$PORT -n $NAMESPACE &
+    PORT_FORWARD_PID=$!
+    sleep 5
+    SERVICE_URL="localhost:$PORT"
+fi
+
+echo -e "${YELLOW}Testing URL: http://$SERVICE_URL/${NC}"
+
+# Perform load test
+echo -e "${YELLOW}Running wrk load test for $LOAD_TEST_DURATION...${NC}"
+wrk -t4 -c100 -d$LOAD_TEST_DURATION --latency http://$SERVICE_URL/
+
+if [ $? -eq 0 ]; then
+    echo -e "${GREEN}✓ Load testing completed${NC}"
+else
+    echo -e "${RED}✗ Load testing failed${NC}"
+fi
+
+# Clean up port-forward if we started it
+if [ ! -z "$PORT_FORWARD_PID" ]; then
+    kill $PORT_FORWARD_PID
+fi
+
+# Step 4: Monitor resource usage
+echo -e "\n${YELLOW}Step 4: Monitoring resource usage...${NC}"
+
+# Check if metrics-server is available
+if kubectl top nodes &> /dev/null; then
+    echo -e "${YELLOW}Current resource usage:${NC}"
+    
+    echo -e "\n${YELLOW}Node resource usage:${NC}"
+    kubectl top nodes
+    
+    echo -e "\n${YELLOW}Pod resource usage:${NC}"
+    kubectl top pods -n $NAMESPACE -l app=$DEPLOYMENT_NAME
+    
+    # Monitor for a period to see changes
+    echo -e "\n${YELLOW}Monitoring resource usage for 30 seconds...${NC}"
+    for i in {1..6}; do
+        echo -e "\n${YELLOW}--- Sample $i ---${NC}"
+        kubectl top pods -n $NAMESPACE -l app=$DEPLOYMENT_NAME
+        sleep 5
+    done
+else
+    echo -e "${RED}✗ Metrics-server not available. Cannot monitor resource usage.${NC}"
+    echo -e "${YELLOW}To enable resource monitoring, install metrics-server:${NC}"
+    echo -e "kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml"
+fi
+
+echo -e "\n${GREEN}Script completed successfully!${NC}"
+echo -e "${YELLOW}Summary:${NC}"
+echo -e "  - Scaled deployment to 3 replicas"
+echo -e "  - Verified $POD_COUNT pods running"
+echo -e "  - Performed load testing for $LOAD_TEST_DURATION"
+echo -e "  - Monitored resource usage"
