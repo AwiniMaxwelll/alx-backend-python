@@ -1,0 +1,309 @@
+#!/bin/bash
+
+# kubctl-0x02 - Blue-Green Deployment Script for Zero-Downtime Deployments
+
+set -e
+
+# Configuration
+BLUE_DEPLOYMENT="blue_deployment.yaml"
+GREEN_DEPLOYMENT="green_deployment.yaml"
+MAIN_SERVICE="kubeservice.yaml"
+NAMESPACE="default"
+SERVICE_NAME="django-app-service"
+DEPLOYMENT_LABEL="app=django-app"
+
+# Colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m'
+
+# Logging function
+log() {
+    echo -e "${BLUE}[$(date +'%Y-%m-%d %H:%M:%S')]${NC} $1"
+}
+
+error() {
+    echo -e "${RED}[ERROR]${NC} $1"
+}
+
+success() {
+    echo -e "${GREEN}[SUCCESS]${NC} $1"
+}
+
+warning() {
+    echo -e "${YELLOW}[WARNING]${NC} $1"
+}
+
+# Function to check prerequisites
+check_prerequisites() {
+    log "Checking prerequisites..."
+    
+    if ! command -v kubectl &> /dev/null; then
+        error "kubectl is not installed or not in PATH"
+        exit 1
+    fi
+    
+    if ! kubectl cluster-info &> /dev/null; then
+        error "Cannot connect to Kubernetes cluster"
+        exit 1
+    fi
+    
+    success "Prerequisites check passed"
+}
+
+# Function to get current active deployment
+get_active_deployment() {
+    CURRENT_SELECTOR=$(kubectl get service $SERVICE_NAME -n $NAMESPACE -o jsonpath='{.spec.selector.deployment}')
+    echo "$CURRENT_SELECTOR"
+}
+
+# Function to deploy blue version
+deploy_blue() {
+    log "Deploying Blue version..."
+    kubectl apply -f $BLUE_DEPLOYMENT -n $NAMESPACE
+    
+    log "Waiting for Blue pods to be ready..."
+    kubectl wait --for=condition=ready pod -l $DEPLOYMENT_LABEL,deployment=blue -n $NAMESPACE --timeout=300s
+    
+    success "Blue deployment completed"
+}
+
+# Function to deploy green version
+deploy_green() {
+    log "Deploying Green version..."
+    kubectl apply -f $GREEN_DEPLOYMENT -n $NAMESPACE
+    
+    log "Waiting for Green pods to be ready..."
+    kubectl wait --for=condition=ready pod -l $DEPLOYMENT_LABEL,deployment=green -n $NAMESPACE --timeout=300s
+    
+    success "Green deployment completed"
+}
+
+# Function to check logs for errors
+check_green_logs() {
+    log "Checking Green deployment logs for errors..."
+    
+    GREEN_PODS=$(kubectl get pods -n $NAMESPACE -l $DEPLOYMENT_LABEL,deployment=green -o jsonpath='{.items[*].metadata.name}')
+    
+    ERROR_FOUND=false
+    
+    for pod in $GREEN_PODS; do
+        log "Checking logs for pod: $pod"
+        
+        # Get recent logs and check for common error patterns
+        LOG_OUTPUT=$(kubectl logs $pod -n $NAMESPACE --tail=50)
+        
+        # Check for common error patterns
+        if echo "$LOG_OUTPUT" | grep -i -E "error|exception|traceback|failed" | grep -v -i "debug" > /dev/null; then
+            error "Found errors in pod $pod:"
+            echo "$LOG_OUTPUT" | grep -i -E "error|exception|traceback|failed" | grep -v -i "debug" | head -10
+            ERROR_FOUND=true
+        else
+            success "No critical errors found in pod $pod"
+        fi
+        
+        # Check pod status
+        POD_STATUS=$(kubectl get pod $pod -n $NAMESPACE -o jsonpath='{.status.containerStatuses[0].ready}')
+        RESTART_COUNT=$(kubectl get pod $pod -n $NAMESPACE -o jsonpath='{.status.containerStatuses[0].restartCount}')
+        
+        log "Pod $pod - Ready: $POD_STATUS, Restarts: $RESTART_COUNT"
+        
+        if [ "$POD_STATUS" != "true" ] || [ $RESTART_COUNT -gt 2 ]; then
+            error "Pod $pod is not healthy - Ready: $POD_STATUS, Restarts: $RESTART_COUNT"
+            ERROR_FOUND=true
+        fi
+    done
+    
+    if [ "$ERROR_FOUND" = true ]; then
+        error "Green deployment has issues. Aborting traffic switch."
+        return 1
+    else
+        success "Green deployment logs check passed"
+        return 0
+    fi
+}
+
+# Function to perform health check on green deployment
+health_check_green() {
+    log "Performing health check on Green deployment..."
+    
+    # Get a green pod to test
+    GREEN_POD=$(kubectl get pods -n $NAMESPACE -l $DEPLOYMENT_LABEL,deployment=green -o jsonpath='{.items[0].metadata.name}')
+    
+    if [ -n "$GREEN_POD" ]; then
+        log "Testing Green pod: $GREEN_POD"
+        
+        # Port forward to test the application
+        kubectl port-forward $GREEN_POD 8080:8000 -n $NAMESPACE &
+        PORT_FORWARD_PID=$!
+        sleep 5
+        
+        # Test health endpoint
+        if curl -f http://localhost:8080/health/ > /dev/null 2>&1; then
+            success "Health check passed for Green deployment"
+            kill $PORT_FORWARD_PID
+            return 0
+        else
+            error "Health check failed for Green deployment"
+            kill $PORT_FORWARD_PID
+            return 1
+        fi
+    else
+        error "No Green pods found for health check"
+        return 1
+    fi
+}
+
+# Function to switch traffic to green
+switch_traffic_to_green() {
+    log "Switching traffic from Blue to Green..."
+    
+    # Update the main service selector
+    kubectl patch service $SERVICE_NAME -n $NAMESPACE -p '{"spec":{"selector":{"deployment":"green"}}}'
+    
+    # Wait for service to update
+    sleep 10
+    
+    # Verify the switch
+    CURRENT=$(get_active_deployment)
+    if [ "$CURRENT" = "green" ]; then
+        success "Traffic successfully switched to Green deployment"
+    else
+        error "Failed to switch traffic to Green"
+        return 1
+    fi
+}
+
+# Function to rollback to blue if needed
+rollback_to_blue() {
+    warning "Rolling back to Blue deployment..."
+    
+    kubectl patch service $SERVICE_NAME -n $NAMESPACE -p '{"spec":{"selector":{"deployment":"blue"}}}'
+    
+    # Wait for service to update
+    sleep 10
+    
+    CURRENT=$(get_active_deployment)
+    if [ "$CURRENT" = "blue" ]; then
+        success "Successfully rolled back to Blue deployment"
+        
+        # Optionally scale down green deployment
+        log "Scaling down Green deployment..."
+        kubectl scale deployment django-app-green --replicas=0 -n $NAMESPACE
+    else
+        error "Failed to rollback to Blue deployment"
+        return 1
+    fi
+}
+
+# Function to display deployment status
+show_status() {
+    log "Current Deployment Status:"
+    echo "=========================="
+    
+    CURRENT_ACTIVE=$(get_active_deployment)
+    echo "Active Deployment: $CURRENT_ACTIVE"
+    echo ""
+    
+    echo "Blue Deployment:"
+    kubectl get pods -n $NAMESPACE -l $DEPLOYMENT_LABEL,deployment=blue
+    
+    echo ""
+    echo "Green Deployment:"
+    kubectl get pods -n $NAMESPACE -l $DEPLOYMENT_LABEL,deployment=green
+    
+    echo ""
+    echo "Service Status:"
+    kubectl get service $SERVICE_NAME -n $NAMESPACE
+}
+
+# Main deployment function
+main_deployment() {
+    log "Starting Blue-Green Deployment Process"
+    
+    check_prerequisites
+    
+    # Get current active deployment
+    CURRENT_ACTIVE=$(get_active_deployment)
+    log "Current active deployment: $CURRENT_ACTIVE"
+    
+    # Ensure both deployments are running
+    deploy_blue
+    deploy_green
+    
+    # Check green deployment for errors
+    if ! check_green_logs; then
+        error "Green deployment has errors. Deployment aborted."
+        exit 1
+    fi
+    
+    # Perform health check
+    if ! health_check_green; then
+        error "Green deployment health check failed. Deployment aborted."
+        exit 1
+    fi
+    
+    # Ask for confirmation before switching traffic
+    echo ""
+    warning "About to switch traffic from Blue to Green deployment."
+    read -p "Do you want to proceed? (y/n): " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        log "Traffic switch cancelled by user"
+        exit 0
+    fi
+    
+    # Switch traffic to green
+    if switch_traffic_to_green; then
+        success "Blue-Green deployment completed successfully!"
+        
+        # Optionally scale down blue deployment after successful switch
+        log "You may now scale down the Blue deployment when ready"
+    else
+        error "Failed to switch traffic to Green"
+        rollback_to_blue
+        exit 1
+    fi
+    
+    show_status
+}
+
+# Function for rollback only
+rollback() {
+    log "Initiating rollback to Blue deployment..."
+    rollback_to_blue
+    show_status
+}
+
+# Function for status check
+status() {
+    show_status
+}
+
+# Parse command line arguments
+case "${1:-}" in
+    "deploy")
+        main_deployment
+        ;;
+    "rollback")
+        rollback
+        ;;
+    "status")
+        status
+        ;;
+    "check-logs")
+        check_green_logs
+        ;;
+    *)
+        echo "Usage: $0 {deploy|rollback|status|check-logs}"
+        echo ""
+        echo "Commands:"
+        echo "  deploy      - Perform blue-green deployment"
+        echo "  rollback    - Rollback to blue deployment"
+        echo "  status      - Show current deployment status"
+        echo "  check-logs  - Check green deployment logs for errors"
+        exit 1
+        ;;
+esac
