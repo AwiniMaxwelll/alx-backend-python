@@ -1,0 +1,358 @@
+set -e
+
+# Configuration
+DEPLOYMENT_FILE="blue_deployment.yaml"
+DEPLOYMENT_NAME="django-app-blue"
+NAMESPACE="default"
+SERVICE_NAME="messaging-app-service"
+TEST_URL="https://maxtech.com"  # Update with your actual URL
+TEST_DURATION=300  # 5 minutes total test duration
+REQUEST_INTERVAL=2  # 2 seconds between requests
+
+# Colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+NC='\033[0m'
+
+# Logging functions
+log() {
+    echo -e "${BLUE}[$(date +'%H:%M:%S')]${NC} $1"
+}
+
+info() {
+    echo -e "${CYAN}[INFO]${NC} $1"
+}
+
+success() {
+    echo -e "${GREEN}[SUCCESS]${NC} $1"
+}
+
+warning() {
+    echo -e "${YELLOW}[WARNING]${NC} $1"
+}
+
+error() {
+    echo -e "${RED}[ERROR]${NC} $1"
+}
+
+# Function to check prerequisites
+check_prerequisites() {
+    log "Checking prerequisites..."
+    
+    local missing_commands=()
+    
+    for cmd in kubectl curl; do
+        if ! command -v $cmd &> /dev/null; then
+            missing_commands+=("$cmd")
+        fi
+    done
+    
+    if [ ${#missing_commands[@]} -ne 0 ]; then
+        error "Missing required commands: ${missing_commands[*]}"
+        exit 1
+    fi
+    
+    if ! kubectl cluster-info &> /dev/null; then
+        error "Cannot connect to Kubernetes cluster"
+        exit 1
+    fi
+    
+    success "All prerequisites met"
+}
+
+# Function to get current deployment status
+get_deployment_status() {
+    kubectl get deployment $DEPLOYMENT_NAME -n $NAMESPACE -o wide
+}
+
+# Function to get current pod information
+get_pod_info() {
+    log "Current Pods:"
+    kubectl get pods -n $NAMESPACE -l app=django-app -o wide
+    echo ""
+    
+    log "Pod Images:"
+    kubectl get pods -n $NAMESPACE -l app=django-app -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.spec.containers[0].image}{"\n"}{end}'
+    echo ""
+}
+
+# Function to test application endpoint
+test_endpoint() {
+    local url=$1
+    local attempt=1
+    local max_attempts=3
+    
+    while [ $attempt -le $max_attempts ]; do
+        if curl -s -f --connect-timeout 5 --max-time 10 "$url/health/" > /dev/null 2>&1; then
+            return 0
+        fi
+        attempt=$((attempt + 1))
+        sleep 2
+    done
+    return 1
+}
+
+# Function to perform continuous testing during rollout
+continuous_testing() {
+    local duration=$1
+    local interval=$2
+    local end_time=$((SECONDS + duration))
+    local request_count=0
+    local success_count=0
+    local error_count=0
+    
+    info "Starting continuous testing for $duration seconds (interval: ${interval}s)"
+    info "Testing endpoint: $TEST_URL"
+    
+    while [ $SECONDS -lt $end_time ]; do
+        request_count=$((request_count + 1))
+        
+        # Get response time and status
+        start_time=$(date +%s%N)
+        
+        if curl -s -f --connect-timeout 5 --max-time 10 "$TEST_URL/health/" > /dev/null 2>&1; then
+            success_count=$((success_count + 1))
+            status="✓"
+        else
+            error_count=$((error_count + 1))
+            status="✗"
+        fi
+        
+        end_time_ns=$(date +%s%N)
+        response_time=$(( (end_time_ns - start_time) / 1000000 ))  # Convert to milliseconds
+        
+        # Display progress
+        echo -ne "\r${status} Requests: $request_count, Success: $success_count, Errors: $error_count, Response: ${response_time}ms"
+        
+        sleep $interval
+    done
+    
+    echo ""  # New line after progress
+    echo ""
+    
+    # Calculate success rate
+    local success_rate=0
+    if [ $request_count -gt 0 ]; then
+        success_rate=$(( (success_count * 100) / request_count ))
+    fi
+    
+    info "Continuous testing completed:"
+    info "  Total requests: $request_count"
+    info "  Successful: $success_count"
+    info "  Errors: $error_count"
+    info "  Success rate: $success_rate%"
+    
+    if [ $success_rate -lt 95 ]; then
+        warning "Success rate below 95%, there might have been some disruption"
+        return 1
+    else
+        success "High success rate indicates minimal to no disruption"
+        return 0
+    fi
+}
+
+# Function to trigger rolling update
+trigger_rolling_update() {
+    log "Triggering rolling update for deployment: $DEPLOYMENT_NAME"
+    
+    # Get current revision before update
+    local current_revision
+    current_revision=$(kubectl rollout history deployment/$DEPLOYMENT_NAME -n $NAMESPACE --revision=0 2>/dev/null | grep "revision" | awk '{print $2}' || echo "1")
+    info "Current revision: $current_revision"
+    
+    # Apply the updated deployment
+    log "Applying updated deployment configuration..."
+    kubectl apply -f $DEPLOYMENT_FILE -n $NAMESPACE
+    
+    # Verify the update was applied
+    local current_image
+    current_image=$(kubectl get deployment $DEPLOYMENT_NAME -n $NAMESPACE -o jsonpath='{.spec.template.spec.containers[0].image}')
+    info "Deployment image updated to: $current_image"
+    
+    success "Rolling update triggered successfully"
+}
+
+# Function to monitor rollout status
+monitor_rollout() {
+    log "Monitoring rollout status..."
+    
+    # Start monitoring in background
+    kubectl rollout status deployment/$DEPLOYMENT_NAME -n $NAMESPACE --timeout=600s &
+    local monitor_pid=$!
+    
+    # Wait a bit for rollout to start
+    sleep 10
+    
+    # Show rollout progress periodically
+    while kill -0 $monitor_pid 2>/dev/null; do
+        echo ""
+        info "Rollout in progress..."
+        get_pod_info
+        
+        # Check for any pod failures
+        local failed_pods
+        failed_pods=$(kubectl get pods -n $NAMESPACE -l app=django-app --field-selector=status.phase=Failed --no-headers | wc -l)
+        
+        if [ $failed_pods -gt 0 ]; then
+            warning "Found $failed_pods failed pods"
+            kubectl get pods -n $NAMESPACE -l app=django-app --field-selector=status.phase=Failed
+        fi
+        
+        sleep 15
+    done
+    
+    wait $monitor_pid
+    local rollout_status=$?
+    
+    if [ $rollout_status -eq 0 ]; then
+        success "Rollout completed successfully"
+    else
+        error "Rollout failed or timed out"
+        return 1
+    fi
+    
+    return $rollout_status
+}
+
+# Function to verify rolling update completion
+verify_update() {
+    log "Verifying rolling update completion..."
+    
+    # Check deployment status
+    info "Deployment Status:"
+    get_deployment_status
+    echo ""
+    
+    # Check all pods are running
+    local ready_pods
+    local total_replicas
+    
+    ready_pods=$(kubectl get deployment $DEPLOYMENT_NAME -n $NAMESPACE -o jsonpath='{.status.readyReplicas}')
+    total_replicas=$(kubectl get deployment $DEPLOYMENT_NAME -n $NAMESPACE -o jsonpath='{.status.replicas}')
+    
+    info "Ready pods: $ready_pods/$total_replicas"
+    
+    if [ "$ready_pods" != "$total_replicas" ]; then
+        error "Not all pods are ready"
+        return 1
+    fi
+    
+    # Verify all pods are running the new image
+    local expected_image="your-username/django-app:v2.0"
+    local pod_count
+    local correct_image_count
+    
+    pod_count=$(kubectl get pods -n $NAMESPACE -l app=django-app --no-headers | wc -l | tr -d ' ')
+    correct_image_count=$(kubectl get pods -n $NAMESPACE -l app=django-app -o jsonpath='{range .items[*]}{.spec.containers[0].image}{"\n"}{end}' | grep -c "$expected_image" || true)
+    
+    info "Pods running new image: $correct_image_count/$pod_count"
+    
+    if [ "$correct_image_count" != "$pod_count" ]; then
+        error "Not all pods are running the new image"
+        return 1
+    fi
+    
+    # Check rollout history
+    info "Rollout History:"
+    kubectl rollout history deployment/$DEPLOYMENT_NAME -n $NAMESPACE
+    echo ""
+    
+    success "Rolling update verification completed successfully"
+}
+
+# Function to perform final health check
+final_health_check() {
+    log "Performing final health check..."
+    
+    if test_endpoint "$TEST_URL"; then
+        success "Application is healthy after update"
+        return 0
+    else
+        error "Application health check failed after update"
+        return 1
+    fi
+}
+
+# Main function
+main() {
+    log "Starting Rolling Update Deployment Process"
+    echo "=========================================="
+    
+    # Check prerequisites
+    check_prerequisites
+    
+    # Show initial state
+    info "Initial Deployment State:"
+    get_deployment_status
+    get_pod_info
+    
+    # Test initial application state
+    if ! test_endpoint "$TEST_URL"; then
+        error "Application is not accessible before update. Please check the service."
+        exit 1
+    fi
+    success "Application is accessible before update"
+    
+    # Start continuous testing in background
+    info "Starting background continuous testing..."
+    continuous_testing $TEST_DURATION $REQUEST_INTERVAL &
+    local test_pid=$!
+    
+    # Trigger rolling update
+    trigger_rolling_update
+    
+    # Monitor rollout
+    if ! monitor_rollout; then
+        error "Rollout monitoring detected issues"
+        kill $test_pid 2>/dev/null || true
+        exit 1
+    fi
+    
+    # Wait for continuous testing to complete
+    info "Waiting for continuous testing to complete..."
+    wait $test_pid
+    local test_result=$?
+    
+    # Verify update
+    verify_update
+    
+    # Final health check
+    final_health_check
+    
+    # Show final state
+    info "Final Deployment State:"
+    get_deployment_status
+    get_pod_info
+    
+    if [ $test_result -eq 0 ]; then
+        success "Rolling update completed successfully with minimal disruption"
+    else
+        warning "Rolling update completed but some disruption was detected during testing"
+    fi
+    
+    echo ""
+    info "Rolling update process completed!"
+}
+
+# Handle command line arguments
+case "${1:-}" in
+    "status")
+        get_deployment_status
+        get_pod_info
+        ;;
+    "test")
+        continuous_testing 60 1  # Test for 60 seconds with 1s interval
+        ;;
+    "verify")
+        verify_update
+        ;;
+    "history")
+        kubectl rollout history deployment/$DEPLOYMENT_NAME -n $NAMESPACE
+        ;;
+    *)
+        main
+        ;;
+esac
