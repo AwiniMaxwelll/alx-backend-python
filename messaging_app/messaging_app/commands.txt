@@ -1,0 +1,23 @@
+
+# Command to apply the Ingress configuration
+kubectl apply -f ingress.yaml
+
+# Alternative command with specific namespace (if needed)
+kubectl apply -f ingress.yaml -n your-namespace
+
+# Command to verify the Ingress
+kubectl get ingress
+
+# Command to check detailed Ingress information
+kubectl describe ingress django-app-ingress
+
+# Command to check Ingress controller status
+kubectl get pods -n ingress-nginx
+
+# Command to delete the Ingress (if needed)
+kubectl delete -f ingress.yaml
+
+# Command to test the Ingress (replace <INGRESS_IP> with actual IP)
+curl -H "Host: django-app.local" http://<INGRESS_IP>/
+Usage Instructions:
+Make scripts executable:
