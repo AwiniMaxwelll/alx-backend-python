@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: messaging_app-services
+  labels:
+    app: messaging_app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: messaging_app
+  template:
+    metadata:
+      labels:
+        app: messaging_app
+    spec:
+      containers:
+      - name: django-app
+        image: awinimaxwell/messaging_app:latest
+        ports:
+        - containerPort: 8000
+        env:
+        - name: DEBUG
+          value: "True"
+        - name: SECRET_KEY
+          value: "django-insecure-test-key-for-development"
+        command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
