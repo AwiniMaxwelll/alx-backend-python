@@ -3,30 +3,37 @@ kind: Deployment
 metadata:
   name: django-app-blue
   labels:
-    app: messaging_app
-    version: "1.0"
+    app: message_app
+    version: "2.0"
     deployment: blue
+  annotations:
+    kubernetes.io/change-cause: "Update to version 2.0 with new features"
 spec:
   replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: messaging_app
-      version: "1.0"
+      version: "2.0"
   template:
     metadata:
       labels:
         app: messaging_app
-        version: "1.0"
+        version: "2.0"
         deployment: blue
     spec:
       containers:
       - name: messaging_app
-        image: awinimaxwell/django-app:v1.0
+        image: your-username/django-app:v2.0  # Updated to version 2.0
         ports:
         - containerPort: 8000
         env:
         - name: APP_VERSION
-          value: "1.0-blue"
+          value: "2.0-blue"
         - name: DATABASE_URL
           valueFrom:
             secretKeyRef:
@@ -45,12 +52,16 @@ spec:
             port: 8000
           initialDelaySeconds: 30
           periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
         readinessProbe:
           httpGet:
             path: /health/
             port: 8000
           initialDelaySeconds: 5
           periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 1
 ---
 apiVersion: v1
 kind: Service
@@ -61,7 +72,7 @@ metadata:
     deployment: blue
 spec:
   selector:
-    app: messaging_app
+    app: dmessaging_app
     deployment: blue
   ports:
   - port: 80
